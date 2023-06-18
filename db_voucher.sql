@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2023-06-18 18:21:06
+Date: 2023-06-17 20:49:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -54,7 +54,7 @@ INSERT INTO `t_game` VALUES ('6', 'FIFA Mobile', 'fifa.jpg', '6');
 INSERT INTO `t_game` VALUES ('7', 'Genshin Impact', 'genshin.jpg', '3');
 INSERT INTO `t_game` VALUES ('8', 'Call Of Duty Mobile', 'codm.jpg', '4');
 INSERT INTO `t_game` VALUES ('9', 'Honkai Star Rail', 'honkaisr.jpg', '2');
-INSERT INTO `t_game` VALUES ('11', 'Valorant', 'valorant.jpg', '1');
+INSERT INTO `t_game` VALUES ('11', 'Valorant', 'valorant1.jpg', '1');
 
 -- ----------------------------
 -- Table structure for `t_metode`
