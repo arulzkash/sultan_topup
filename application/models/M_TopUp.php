@@ -46,7 +46,7 @@ class M_TopUp extends CI_Model
 
     public function getVoucherByID($id)
     {
-        return $this->db->get_where('t_voucher', ['id_voucher' => $id])->result_array();
+        return $this->db->get_where('t_voucher', ['id_voucher' => $id])->row_array();
     }
 
     public function getAllVoucherGame()
