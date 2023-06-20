@@ -6,6 +6,7 @@ class C_Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_Admin');
+        $this->load->helper('date');
         $this->load->library('form_validation');
     }
 
@@ -81,6 +82,46 @@ class C_Admin extends CI_Controller
         $this->load->view('templates/footer_admin', $data);
     }
 
+    public function pembayaran()
+    {
+        $data['judul'] = "Database Receipt";
+        $data['active_database'] = "open";
+        $data['active_struk'] = "active";
+        $data['struk'] = $this->M_TopUp->getAllData();
+
+        $this->load->view('templates/menu_admin', $data);
+        $this->load->view('admin/pembayaran');
+        $this->load->view('templates/footer_admin', $data);
+    }
+
+    public function konfirmasi_pembayaran($id)
+    {
+        $gmtOffestTime = 5 * 3600;
+        $currentDateTime = now() + $gmtOffestTime;
+        $formattedDateTime = date('H:i:s l, d F', $currentDateTime);
+
+        $hasil = $this->M_TopUp->pembayaranStruk($id);
+        $data = [
+            "status_pembayaran" => '2',
+        ];
+
+        $this->db->where("id_pembayaran", $id);
+        $this->db->update('t_pembayaran', $data);
+
+        $data2 = [
+            "waktu" => $formattedDateTime,
+            "tanggal_struk" => date('Y-m-d', $currentDateTime),
+        ];
+
+        $this->db->where("id_struk", $hasil['id_struk']);
+        $this->db->update('t_struk', $data2);
+
+        $this->session->set_flashdata('selesai', 'Pembayaran berhasil! Ini dia struk anda!');
+
+
+        redirect('c_admin/pembayaran');
+    }
+
     public function pesan()
     {
         $data['judul'] = "Database Message";
@@ -95,19 +136,21 @@ class C_Admin extends CI_Controller
 
     public function aksi_pesan()
     {
+        $gmtOffestTime = 5 * 3600;
+        $currentDateTime = now() + $gmtOffestTime;
+        $formattedDateTime = date('H:i:s l, d F', $currentDateTime);
         $data = [
             "nama_pengirim" => $this->input->post("nama_pengirim"),
             "email_pengirim" => $this->input->post("email_pengirim"),
             "subjek_pesan" => $this->input->post("subjek_pesan"),
             "isi_pesan" => $this->input->post("isi_pesan"),
-            "tanggal_pesan" => date('Y-m-d')
+            "tanggal_pesan" => date('Y-m-d', $currentDateTime)
         ];
 
         $this->db->insert('t_pesan', $data);
 
         $this->session->set_flashdata('success', 'Pesan telah terkirim!');
         redirect('C_TopUp/index');
-
     }
 
     public function tambah_game()

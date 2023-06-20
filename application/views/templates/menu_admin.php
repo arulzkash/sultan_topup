@@ -94,7 +94,7 @@ $active_struk = $active_struk ?? '';
                                 </a>
                             </li>
                             <li class="menu-item" <?= $active_struk ?>>
-                                <a href="<?= base_url(); ?>C_Admin/struk" class="menu-link">
+                                <a href="<?= base_url(); ?>C_Admin/pembayaran" class="menu-link">
                                     <div data-i18n="Fluid">Receipt</div>
                                 </a>
                             </li>

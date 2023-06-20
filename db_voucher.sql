@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2023-06-20 16:20:58
+Date: 2023-06-21 02:02:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,7 +40,7 @@ CREATE TABLE `t_game` (
   `foto_game` varchar(50) DEFAULT NULL,
   `discount` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_game`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of t_game
@@ -65,7 +65,7 @@ CREATE TABLE `t_metode` (
   `nama_metode` varchar(50) DEFAULT '',
   `foto_metode` varchar(50) DEFAULT '',
   PRIMARY KEY (`id_metode`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of t_metode
@@ -85,6 +85,43 @@ INSERT INTO `t_metode` VALUES ('12', 'Alfamart', 'alfamart.png');
 INSERT INTO `t_metode` VALUES ('14', 'Link Aja', 'linkaja1.png');
 
 -- ----------------------------
+-- Table structure for `t_pembayaran`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_pembayaran`;
+CREATE TABLE `t_pembayaran` (
+  `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT,
+  `status_pembayaran` int(11) DEFAULT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `id_struk` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_pembayaran`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Records of t_pembayaran
+-- ----------------------------
+INSERT INTO `t_pembayaran` VALUES ('1', '0', '1', '49');
+INSERT INTO `t_pembayaran` VALUES ('2', '0', '1', '50');
+INSERT INTO `t_pembayaran` VALUES ('3', '2', '1', '51');
+INSERT INTO `t_pembayaran` VALUES ('4', '0', '1', '52');
+INSERT INTO `t_pembayaran` VALUES ('5', '0', '1', '53');
+INSERT INTO `t_pembayaran` VALUES ('6', '0', '1', '54');
+INSERT INTO `t_pembayaran` VALUES ('7', '0', '1', '55');
+INSERT INTO `t_pembayaran` VALUES ('8', '2', '1', '56');
+INSERT INTO `t_pembayaran` VALUES ('9', '0', '1', '57');
+INSERT INTO `t_pembayaran` VALUES ('10', '0', '1', '58');
+INSERT INTO `t_pembayaran` VALUES ('11', '2', '1', '59');
+INSERT INTO `t_pembayaran` VALUES ('12', '1', '1', '60');
+INSERT INTO `t_pembayaran` VALUES ('13', '1', '1', '61');
+INSERT INTO `t_pembayaran` VALUES ('14', '1', '1', '62');
+INSERT INTO `t_pembayaran` VALUES ('15', '0', '1', '63');
+INSERT INTO `t_pembayaran` VALUES ('16', '2', '1', '64');
+INSERT INTO `t_pembayaran` VALUES ('17', '2', '1', '65');
+INSERT INTO `t_pembayaran` VALUES ('18', '2', '1', '66');
+INSERT INTO `t_pembayaran` VALUES ('19', '2', '1', '67');
+INSERT INTO `t_pembayaran` VALUES ('20', '2', '2', '68');
+INSERT INTO `t_pembayaran` VALUES ('21', '2', '3', '69');
+
+-- ----------------------------
 -- Table structure for `t_pesan`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_pesan`;
@@ -96,7 +133,7 @@ CREATE TABLE `t_pesan` (
   `isi_pesan` varchar(200) DEFAULT '',
   `tanggal_pesan` date DEFAULT NULL,
   PRIMARY KEY (`id_pesan`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of t_pesan
@@ -110,6 +147,7 @@ INSERT INTO `t_pesan` VALUES ('6', 'Bernard Arnault', 'bernardarnault@lvmh.com',
 INSERT INTO `t_pesan` VALUES ('7', 'Larry Ellison', 'larryellison@oracle.com', 'Permintaan informasi ketersediaan voucher terbatas', 'Selamat pagi, saya tertarik dengan voucher game yang diklaim memiliki stok terbatas. Apakah Anda bisa memberikan informasi terkini tentang ketersediaan voucher tersebut? Saya ingin melakukan pembelian', '2023-06-19');
 INSERT INTO `t_pesan` VALUES ('8', 'arul', 'arul@gmail.com', 'menanyakan kabar', 'Bagaimana kabarnya setelah web ini berlangsung selama beberapa waktu?', '2023-06-20');
 INSERT INTO `t_pesan` VALUES ('9', 'kashi', 'kashi@gmail.com', 'HAI', 'HAI. Aku senang bisa mengirim pesan disini', '2023-06-20');
+INSERT INTO `t_pesan` VALUES ('10', 'Raffi', 'raffi@gmail.com', 'Presentasi', 'Bismillah Semoga presentasinya lancar. Aamiin', '2023-06-20');
 
 -- ----------------------------
 -- Table structure for `t_struk`
@@ -123,35 +161,119 @@ CREATE TABLE `t_struk` (
   `id_voucher` int(11) DEFAULT NULL,
   `id_metode` int(11) DEFAULT NULL,
   `total_amount` varchar(50) DEFAULT '',
+  `id_verifikasi` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_struk`),
   KEY `fk_struk_metode` (`id_metode`),
   KEY `fk_struk_voucher` (`id_voucher`),
   CONSTRAINT `fk_struk_metode` FOREIGN KEY (`id_metode`) REFERENCES `t_metode` (`id_metode`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_struk_voucher` FOREIGN KEY (`id_voucher`) REFERENCES `t_voucher` (`id_voucher`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of t_struk
 -- ----------------------------
-INSERT INTO `t_struk` VALUES ('22', 'aa', '10:19:57 Wednesday, 14 June', '2023-06-14', '7', '5', '550000');
-INSERT INTO `t_struk` VALUES ('23', 'aab', '10:33:04 Wednesday, 14 June', '2023-06-14', '3', '11', '55000');
-INSERT INTO `t_struk` VALUES ('24', 'Master_Arulz', '18:10:08 Wednesday, 14 June', '2023-06-14', '4', '2', '110000');
-INSERT INTO `t_struk` VALUES ('26', 'arul', '12:58:08 Friday, 16 June', '2023-06-16', '11', '3', '48507');
-INSERT INTO `t_struk` VALUES ('27', 'arul', '15:42:12 Friday, 16 June', '2023-06-16', '26', '14', '50000');
-INSERT INTO `t_struk` VALUES ('28', 'arul', '16:28:10 Friday, 16 June', '2023-06-16', '50', '7', '47500');
-INSERT INTO `t_struk` VALUES ('29', 'arul', '14:49:34 Saturday, 17 June', '2023-06-17', '44', '5', '50000');
-INSERT INTO `t_struk` VALUES ('30', 'kashidota', '15:29:10 Saturday, 17 June', '2023-06-17', '50', '14', '47500');
-INSERT INTO `t_struk` VALUES ('31', 'kashidota', '15:34:26 Saturday, 17 June', '2023-06-17', '12', '4', '68543');
-INSERT INTO `t_struk` VALUES ('32', 'kashidota', '17:59:00 Saturday, 17 June', '2023-06-17', '5', '11', '217800');
-INSERT INTO `t_struk` VALUES ('33', 'arul', '18:18:19 Saturday, 17 June', '2023-06-17', '39', '4', '790550');
-INSERT INTO `t_struk` VALUES ('34', 'arul', '18:19:46 Saturday, 17 June', '2023-06-17', '38', '4', '474330');
-INSERT INTO `t_struk` VALUES ('35', 'arul', '18:53:24 Saturday, 17 June', '2023-06-17', '34', '3', '375060');
-INSERT INTO `t_struk` VALUES ('36', 'arul', '18:58:05 Saturday, 17 June', '2023-06-17', '32', '5', '74730');
-INSERT INTO `t_struk` VALUES ('39', 'kashidota', '15:07:46 Tuesday, 20 June', '2023-06-20', '15', '10', '12769.4');
-INSERT INTO `t_struk` VALUES ('40', 'arul', '15:13:43 Tuesday, 20 June', '2023-06-20', '7', '7', '544500');
-INSERT INTO `t_struk` VALUES ('41', 'arul', '15:14:17 Tuesday, 20 June', '2023-06-20', '20', '4', '19200');
-INSERT INTO `t_struk` VALUES ('42', 'arul', '16:14:23 Tuesday, 20 June', '2023-06-20', '53', '7', '235125');
-INSERT INTO `t_struk` VALUES ('43', 'kashidota', '16:19:40 Tuesday, 20 June', '2023-06-20', '29', '14', '490000');
+INSERT INTO `t_struk` VALUES ('22', 'aa', '10:19:57 Wednesday, 14 June', '2023-06-14', '7', '5', '550000', null);
+INSERT INTO `t_struk` VALUES ('23', 'aab', '10:33:04 Wednesday, 14 June', '2023-06-14', '3', '11', '55000', null);
+INSERT INTO `t_struk` VALUES ('24', 'Master_Arulz', '18:10:08 Wednesday, 14 June', '2023-06-14', '4', '2', '110000', null);
+INSERT INTO `t_struk` VALUES ('26', 'arul', '12:58:08 Friday, 16 June', '2023-06-16', '11', '3', '48507', null);
+INSERT INTO `t_struk` VALUES ('27', 'arul', '15:42:12 Friday, 16 June', '2023-06-16', '26', '14', '50000', null);
+INSERT INTO `t_struk` VALUES ('28', 'arul', '16:28:10 Friday, 16 June', '2023-06-16', '50', '7', '47500', null);
+INSERT INTO `t_struk` VALUES ('29', 'arul', '14:49:34 Saturday, 17 June', '2023-06-17', '44', '5', '50000', null);
+INSERT INTO `t_struk` VALUES ('30', 'kashidota', '15:29:10 Saturday, 17 June', '2023-06-17', '50', '14', '47500', null);
+INSERT INTO `t_struk` VALUES ('31', 'kashidota', '15:34:26 Saturday, 17 June', '2023-06-17', '12', '4', '68543', null);
+INSERT INTO `t_struk` VALUES ('32', 'kashidota', '17:59:00 Saturday, 17 June', '2023-06-17', '5', '11', '217800', null);
+INSERT INTO `t_struk` VALUES ('33', 'arul', '18:18:19 Saturday, 17 June', '2023-06-17', '39', '4', '790550', null);
+INSERT INTO `t_struk` VALUES ('34', 'arul', '18:19:46 Saturday, 17 June', '2023-06-17', '38', '4', '474330', null);
+INSERT INTO `t_struk` VALUES ('35', 'arul', '18:53:24 Saturday, 17 June', '2023-06-17', '34', '3', '375060', null);
+INSERT INTO `t_struk` VALUES ('36', 'arul', '18:58:05 Saturday, 17 June', '2023-06-17', '32', '5', '74730', null);
+INSERT INTO `t_struk` VALUES ('39', 'kashidota', '15:07:46 Tuesday, 20 June', '2023-06-20', '15', '10', '12769.4', null);
+INSERT INTO `t_struk` VALUES ('40', 'arul', '15:13:43 Tuesday, 20 June', '2023-06-20', '7', '7', '544500', null);
+INSERT INTO `t_struk` VALUES ('41', 'arul', '15:14:17 Tuesday, 20 June', '2023-06-20', '20', '4', '19200', null);
+INSERT INTO `t_struk` VALUES ('42', 'arul', '16:14:23 Tuesday, 20 June', '2023-06-20', '53', '7', '235125', null);
+INSERT INTO `t_struk` VALUES ('43', 'kashidota', '16:19:40 Tuesday, 20 June', '2023-06-20', '29', '14', '490000', null);
+INSERT INTO `t_struk` VALUES ('44', 'kashidota', '17:00:18 Tuesday, 20 June', '2023-06-20', '4', '14', '108900', null);
+INSERT INTO `t_struk` VALUES ('45', 'arul', '17:01:13 Tuesday, 20 June', '2023-06-20', '18', '12', '258176.1', null);
+INSERT INTO `t_struk` VALUES ('46', 'masd', '17:10:45 Tuesday, 20 June', '2023-06-20', '20', '3', '19200', null);
+INSERT INTO `t_struk` VALUES ('47', 'arul', '17:43:26 Tuesday, 20 June', '2023-06-20', '37', '2', '247350', null);
+INSERT INTO `t_struk` VALUES ('48', 'arul', '19:50:28 Tuesday, 20 June', '2023-06-20', '36', '4', '78570', null);
+INSERT INTO `t_struk` VALUES ('49', 'aku', '20:41:35 Tuesday, 20 June', '2023-06-20', '21', '3', '48000', null);
+INSERT INTO `t_struk` VALUES ('50', 'kashidota', '20:56:49 Tuesday, 20 June', '2023-06-20', '42', '5', '19200', null);
+INSERT INTO `t_struk` VALUES ('51', 'kashidota', '01:55:03 Wednesday, 21 June', '2023-06-21', '46', '14', '96000', '25');
+INSERT INTO `t_struk` VALUES ('52', 'kaka', '21:36:39 Tuesday, 20 June', '2023-06-20', '3', '5', '54450', null);
+INSERT INTO `t_struk` VALUES ('53', 'kaka', '21:41:31 Tuesday, 20 June', '2023-06-20', '50', '3', '47025', null);
+INSERT INTO `t_struk` VALUES ('54', 'kaka', '21:43:20 Tuesday, 20 June', '2023-06-20', '39', '14', '790550', null);
+INSERT INTO `t_struk` VALUES ('55', 'kaka', '21:45:36 Tuesday, 20 June', '2023-06-20', '36', '5', '78570', null);
+INSERT INTO `t_struk` VALUES ('56', 'kaka', '21:46:49 Tuesday, 20 June', '2023-06-20', '36', '5', '78570', '18');
+INSERT INTO `t_struk` VALUES ('57', 'kaka', '21:46:55 Tuesday, 20 June', '2023-06-20', '36', '5', '78570', null);
+INSERT INTO `t_struk` VALUES ('58', 'kaka', '21:49:31 Tuesday, 20 June', '2023-06-20', '36', '5', '78570', null);
+INSERT INTO `t_struk` VALUES ('59', 'kaka', '21:50:45 Tuesday, 20 June', '2023-06-20', '36', '5', '78570', '3');
+INSERT INTO `t_struk` VALUES ('60', 'kaka', '22:43:41 Tuesday, 20 June', '2023-06-20', '2', '4', '21780', '12');
+INSERT INTO `t_struk` VALUES ('61', 'kaka', '22:45:16 Tuesday, 20 June', '2023-06-20', '2', '4', '21780', '13');
+INSERT INTO `t_struk` VALUES ('62', 'kaka', '22:46:37 Tuesday, 20 June', '2023-06-20', '2', '14', '21780', '17');
+INSERT INTO `t_struk` VALUES ('63', 'arul', '22:58:05 Tuesday, 20 June', '2023-06-20', '47', '3', '115200', null);
+INSERT INTO `t_struk` VALUES ('64', 'arul', '23:00:14 Tuesday, 20 June', '2023-06-20', '47', '3', '115200', '22');
+INSERT INTO `t_struk` VALUES ('65', 'arul', '23:03:15 Tuesday, 20 June', '2023-06-20', '47', '3', '115200', '19');
+INSERT INTO `t_struk` VALUES ('66', 'kash', '00:04:59 Wednesday, 21 June', '2023-06-21', '10', '14', '23526.38', '20');
+INSERT INTO `t_struk` VALUES ('67', 'kash', '00:10:19 Wednesday, 21 June', '2023-06-21', '50', '2', '47025', '21');
+INSERT INTO `t_struk` VALUES ('68', 'arulz', '01:30:47 Wednesday, 21 June', '2023-06-21', '12', '3', '66486.71', '23');
+INSERT INTO `t_struk` VALUES ('69', 'kashidota', '01:37:52 Wednesday, 21 June', '2023-06-21', '53', '3', '235125', '24');
+
+-- ----------------------------
+-- Table structure for `t_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user`;
+CREATE TABLE `t_user` (
+  `id_user` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Records of t_user
+-- ----------------------------
+INSERT INTO `t_user` VALUES ('1', 'arul', '123');
+INSERT INTO `t_user` VALUES ('2', 'arulz', '123456');
+INSERT INTO `t_user` VALUES ('3', 'kashidota', '123456');
+
+-- ----------------------------
+-- Table structure for `t_verifikasi`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_verifikasi`;
+CREATE TABLE `t_verifikasi` (
+  `id_verifikasi` int(11) NOT NULL AUTO_INCREMENT,
+  `foto_verifikasi` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_verifikasi`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Records of t_verifikasi
+-- ----------------------------
+INSERT INTO `t_verifikasi` VALUES ('1', '347300.jpg');
+INSERT INTO `t_verifikasi` VALUES ('2', '3473001.jpg');
+INSERT INTO `t_verifikasi` VALUES ('3', '3473002.jpg');
+INSERT INTO `t_verifikasi` VALUES ('4', '3473003.jpg');
+INSERT INTO `t_verifikasi` VALUES ('5', '3473004.jpg');
+INSERT INTO `t_verifikasi` VALUES ('6', '3473005.jpg');
+INSERT INTO `t_verifikasi` VALUES ('7', '3473006.jpg');
+INSERT INTO `t_verifikasi` VALUES ('8', '3473007.jpg');
+INSERT INTO `t_verifikasi` VALUES ('9', '3473008.jpg');
+INSERT INTO `t_verifikasi` VALUES ('10', '3473009.jpg');
+INSERT INTO `t_verifikasi` VALUES ('11', '34730010.jpg');
+INSERT INTO `t_verifikasi` VALUES ('12', '34730011.jpg');
+INSERT INTO `t_verifikasi` VALUES ('13', '34730012.jpg');
+INSERT INTO `t_verifikasi` VALUES ('14', '34730013.jpg');
+INSERT INTO `t_verifikasi` VALUES ('15', '34730014.jpg');
+INSERT INTO `t_verifikasi` VALUES ('16', '34730015.jpg');
+INSERT INTO `t_verifikasi` VALUES ('17', '34730016.jpg');
+INSERT INTO `t_verifikasi` VALUES ('18', '34730017.jpg');
+INSERT INTO `t_verifikasi` VALUES ('19', '34730018.jpg');
+INSERT INTO `t_verifikasi` VALUES ('20', '34730019.jpg');
+INSERT INTO `t_verifikasi` VALUES ('21', '34730020.jpg');
+INSERT INTO `t_verifikasi` VALUES ('22', '34730021.jpg');
+INSERT INTO `t_verifikasi` VALUES ('23', '111.jpg');
+INSERT INTO `t_verifikasi` VALUES ('24', 'lokasi-pusat-utbk-upi-bumsil.jpg');
+INSERT INTO `t_verifikasi` VALUES ('25', '34730022.jpg');
 
 -- ----------------------------
 -- Table structure for `t_voucher`
@@ -165,7 +287,7 @@ CREATE TABLE `t_voucher` (
   PRIMARY KEY (`id_voucher`),
   KEY `fk_game_voucher` (`id_game`),
   CONSTRAINT `fk_game_voucher` FOREIGN KEY (`id_game`) REFERENCES `t_game` (`id_game`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of t_voucher

@@ -183,7 +183,11 @@ https://templatemo.com/tm-569-edu-meeting
               <li><a href="<?= base_url(); ?>C_TopUp#games">Games</a></li>
               <li><a href="<?= base_url(); ?>#search">Search Receipt</a></li>
               <li><a href="<?= base_url(); ?>#contact">Contact Us</a></li>
-              <li><a href="<?= base_url(); ?>C_Admin">Admin Pages</a></li>
+              <?php if($this->session->has_userdata('pengguna')): ?>
+              <li><a href="<?= base_url(); ?>C_Auth/logout_user">Logout</a></li>
+              <?php else : ?>
+              <li><a href="<?= base_url(); ?>C_TopUp/login">Login</a></li>
+              <?php endif; ?>
             </ul>
             <a class='menu-trigger'>
               <span>Menu</span>

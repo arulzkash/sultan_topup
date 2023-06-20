@@ -17,6 +17,8 @@
   }
 </style>
 
+<!-- <?php var_dump($this->session->userdata('pengguna')) ;?> -->
+
 <!-- ***** Main Banner Area Start ***** -->
 <section class="section main-banner" id="top" data-section="section1">
   <video autoplay muted loop id="bg-video">
@@ -123,6 +125,8 @@
         </div>
       </div>
     </div>
+    
+
 </section>
 
 
@@ -194,6 +198,83 @@
     </div>
   </div>
 </section>
+
+<?php if (!empty($alldata)) : ?>
+<section class="contact-us" id="history">
+<div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="accordions is-first-expanded">
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Transaction Track</h3>
+            </div>
+            <div class="card-body">
+              
+            </div>
+          </div>
+
+          <div class="search-results">
+            <!-- Tampilkan hasil pencarian jika ada -->
+            
+              <h4 class="fw-bold py-3 text-center" style="margin-bottom: 0px;"><span class="text-muted fw-light"></span> <?= $alldata[0]['username'] ?>'s Receipt</h4>
+
+              <!-- Hoverable Table rows -->
+              <div class="card">
+                <h5 class="card-header"></h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Order ID</th>
+                        <th>Voucher Name</th>
+                        <th>Game Name</th>
+                        <th>Time Purchase</th>
+                        <th>Payment Method</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <?php foreach ($alldata as $d) : 
+                        if($d['status_pembayaran'] == 0) {
+                          $d['status_pembayaran'] = "Belum Kirim Bukti";
+                        }elseif($d['status_pembayaran'] == 1) {
+                          $d['status_pembayaran'] = "Menunggu verifikasi";
+                        }else{
+                          $d['status_pembayaran'] = "Tunai";
+                        }
+                        ?>
+                        <tr>
+                          <td><i class="fab fa-angular fa-lg text-danger me-3"></i>#<?= $d['id_struk'] ?></td>
+                          <td><a target="_blank" href="<?=base_url();?>C_TopUp/verifikasi/<?=$d['id_pembayaran']?>"> <strong><?= $d['nama_voucher'] ?></strong></a></td>
+                          <td><?= $d['nama_game'] ?></td>
+                          <td><?= $d['waktu'] ?></td>
+                          <td><?= $d['nama_metode'] ?></td>
+                          <td>Rp<?= number_format($d['total_amount'], 0, "", ".") ?></td>
+                          <td><?= $d['status_pembayaran'] ?></td>
+
+
+
+                        </tr>
+                      <?php endforeach; ?>
+                    </tbody>
+
+
+                  </table>
+                </div>
+              </div>
+              <!--/ Hoverable Table rows -->
+            
+          </div>
+
+        </div>
+      </div>
+  </div>
+  
+</section>
+<?php endif; ?>
 
 
 
@@ -342,6 +423,14 @@
     checkSection();
   });
 </script>
+
+<?php if ($this->session->flashdata('login')) : ?>
+    <!-- Tampilkan skrip alert jika flash data 'login' ada -->
+    <script>
+        // Menampilkan pesan alert sukses
+        alert("<?php echo $this->session->flashdata('login'); ?>");
+    </script>
+<?php endif; ?>
 
 
 </body>

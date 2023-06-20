@@ -7,6 +7,13 @@ class M_TopUp extends CI_Model
         return $this->db->get('t_game')->result_array();
     }
 
+    public function getAllPembayaranByID($id)
+    {
+        $query = $this->db->query("SELECT * FROM t_pembayaran WHERE id_pembayaran = $id");
+        $data = $query->row_array();
+        return $data;
+    }
+
     public function getAllGamesByName($name)
     {
         $this->db->like('nama_game', $name);
@@ -78,13 +85,26 @@ class M_TopUp extends CI_Model
         $data = [
             "uid_game" => $this->input->post('uid', true),
             "waktu" => $formattedDateTime,
-            "tanggal_struk" => date('Y-m-d'),
+            "tanggal_struk" => date('Y-m-d', $currentDateTime),
             "id_voucher" => $this->input->post('id_voucher', true),
             "id_metode" => $this->input->post('id_metode', true),
             "total_amount" => $harga,
         ];
 
         $this->db->insert('t_struk', $data);
+
+        $id_terakhir = $this->db->insert_id();
+        $pengguna = $this->session->userdata('pengguna');
+        $id = $pengguna['id_user'];
+
+        $data2 = [
+            "id_struk" => $id_terakhir,
+            "status_pembayaran" => '0',
+            "id_user" => $id,
+        ];
+        $this->db->insert('t_pembayaran', $data2);
+        $id_terakhir = $this->db->insert_id();
+        return $id_terakhir;
     }
 
     public function getAllByID()
@@ -131,4 +151,34 @@ class M_TopUp extends CI_Model
         $this->db->where('t_struk.uid_game', $uid);
         return $this->db->get()->result_array();
     }
+
+    public function getAllDataById($id)
+    {
+        $query = $this->db->query("SELECT * FROM t_pembayaran inner join t_struk on t_struk.id_struk = t_pembayaran.id_struk inner join t_metode on t_metode.id_metode = t_struk.id_metode inner join t_voucher on t_voucher.id_voucher = t_struk.id_voucher inner join t_game on t_game.id_game = t_voucher.id_game where t_pembayaran.id_pembayaran = $id");
+        $data = $query->row_array();
+        return $data;
+    }
+
+    public function getAllData()
+    {
+        $query = $this->db->query("SELECT * FROM t_pembayaran inner join t_struk on t_struk.id_struk = t_pembayaran.id_struk inner join t_metode on t_metode.id_metode = t_struk.id_metode inner join t_voucher on t_voucher.id_voucher = t_struk.id_voucher inner join t_game on t_game.id_game = t_voucher.id_game left join t_verifikasi on t_verifikasi.id_verifikasi = t_struk.id_verifikasi" );
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function getAllDataByUser($id)
+    {
+        $query = $this->db->query("SELECT * FROM t_pembayaran inner join t_struk on t_struk.id_struk = t_pembayaran.id_struk inner join t_metode on t_metode.id_metode = t_struk.id_metode inner join t_voucher on t_voucher.id_voucher = t_struk.id_voucher inner join t_game on t_game.id_game = t_voucher.id_game inner join t_user on t_user.id_user = t_pembayaran.id_user  where t_pembayaran.id_user = $id order by t_pembayaran.id_struk desc" );
+        $data = $query->result_array();
+        return $data;
+    }
+
+    public function pembayaranStruk($id)
+    {
+        $query = $this->db->query("SELECT * from t_pembayaran inner join t_struk on t_struk.id_struk = t_pembayaran.id_struk where id_pembayaran = $id " );
+        $data = $query->row_array();
+        return $data;
+    }
+
+    
 }

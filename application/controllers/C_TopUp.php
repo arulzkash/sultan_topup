@@ -13,6 +13,11 @@ class C_TopUp extends CI_Controller
         $searchData = $this->session->flashdata('search_data');
         $data['judul'] = 'Sultan Top UP';
         $data['games'] = $this->M_TopUp->getAllGames();
+        if ($this->session->has_userdata('pengguna') == 1) {
+            $pengguna = $this->session->userdata('pengguna');
+            $id = $pengguna['id_user'];
+            $data['alldata'] = $this->M_TopUp->getAllDataByUser($id);
+        }
 
 
         if ($searchData) {
@@ -24,6 +29,24 @@ class C_TopUp extends CI_Controller
             $this->load->view('templates/header2', $data);
             $this->load->view('x/index', $data);
         }
+    }
+
+    public function login()
+    {
+        $data['judul'] = "Login User";
+        $this->load->view('templates/header_admin', $data);
+        $this->load->view('x/login', $data);
+        $this->load->view('templates/footer_admin', $data);
+
+    }
+
+    public function registrasi()
+    {
+        $data['judul'] = "Registrasi User";
+        $this->load->view('templates/header_admin', $data);
+        $this->load->view('x/registrasi', $data);
+        $this->load->view('templates/footer_admin', $data);
+
     }
 
     public function transaksi($id)
@@ -38,21 +61,113 @@ class C_TopUp extends CI_Controller
 
     public function aksiTransaksi()
     {
-        $data['voucher'] = $this->M_TopUp->getVoucherByID($this->input->post('id_voucher', true));
-        $id = $data['voucher']['id_game'];
-        $data['game'] = $this->M_TopUp->getGamesById($id);
-        $discount = $data['game']['discount'];
-        
-        // var_dump($discount);
+        if ($this->session->has_userdata('pengguna') != 1) {
+            redirect('C_TopUp/login');
+        } else {
+            $data['voucher'] = $this->M_TopUp->getVoucherByID($this->input->post('id_voucher', true));
+            $id = $data['voucher']['id_game'];
+            $data['game'] = $this->M_TopUp->getGamesById($id);
+            $discount = $data['game']['discount'];
 
-        $this->M_TopUp->insertStruk($data, $discount);
+            // var_dump($discount);
 
-        $data['all'] = $this->M_TopUp->getAllByID();
+            $id_struk = $this->M_TopUp->insertStruk($data, $discount);
+            $data['id_terakhir'] = $id_struk;
 
-        $this->session->set_flashdata('data', $data);
-        $this->session->set_flashdata('success', 'Pembayaran Sukses!');
+            // var_dump($id_struk);
 
-        redirect('C_TopUp/struk');
+            $this->session->set_flashdata('upload', 'Silahkan lakukan pembayaran!');
+
+
+            redirect('C_topUp/verifikasi/' . $id_struk);
+
+
+
+
+            // $data['judul'] = 'Verifikasi Sultan';
+
+
+            // $this->load->view('templates/header', $data);
+            // $this->load->view('x/verifikasi', $data);
+
+
+
+            // $data['all'] = $this->M_TopUp->getAllByID();
+
+            // $this->session->set_flashdata('data', $data);
+            // $this->session->set_flashdata('success', 'Pembayaran Sukses!');
+
+            // redirect('C_TopUp/struk');
+        }
+    }
+
+    public function aksiVerifikasi()
+    {
+        $gmtOffestTime = 5 * 3600;
+        $currentDateTime = now() + $gmtOffestTime;
+        $formattedDateTime = date('H:i:s l, d F', $currentDateTime);
+
+        $id = $this->input->post('id_struk');
+        $config['upload_path'] = './assetx/assets/images';  // Ubah sesuai dengan direktori tujuan penyimpanan gambar
+        $config['allowed_types'] = 'jpg';  // Tentukan jenis file gambar yang diizinkan
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('foto_verifikasi')) {
+            $data = $this->upload->data();
+            $nama_file = $data['file_name'];
+
+            // Lakukan sesuatu dengan nama file, misalnya menyimpan ke database
+
+            $data = [
+                "foto_verifikasi" => $nama_file,
+            ];
+
+            $this->db->insert('t_verifikasi', $data);
+
+            $id_terakhir = $this->db->insert_id();
+
+            $data2 = [
+                "id_verifikasi" => $id_terakhir,
+                "waktu" => $formattedDateTime,
+                "tanggal_struk" => date('Y-m-d', $currentDateTime),
+
+            ];
+
+
+            $this->db->where("id_struk", $id);
+            $this->db->update('t_struk', $data2);
+
+            $data3 = [
+                "status_pembayaran" => '1',
+            ];
+
+            $this->db->where("id_struk", $id);
+            $this->db->update('t_pembayaran', $data3);
+
+            $query = $this->db->query("SELECT id_pembayaran from t_pembayaran where t_pembayaran.id_struk = $id");
+            $data = $query->row_array();
+
+            // var_dump($data['id_pembayaran']);
+
+            $this->session->set_flashdata('verifikasi', 'Tunggu verifikasi Admin');
+
+
+
+
+
+
+            // $this->session->set_flashdata('success', 'Game berhasil ditambahkan!');
+
+
+            // Redirect ke halaman sukses atau tampilkan pesan berhasil
+            redirect('C_TopUp/verifikasi/' . $data['id_pembayaran']);
+        } else {
+            $error = $this->upload->display_errors();
+            $id = $this->input->post('id_pembayaran');
+            // Redirect ke halaman gagal atau tampilkan pesan error
+            redirect('C_TopUp/verifikasi/' .$id);
+        }
     }
 
     public function struk()
@@ -65,6 +180,19 @@ class C_TopUp extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('x/struk', $data);
+    }
+
+    public function verifikasi($id)
+    {
+        $data['pembayaran'] = $this->M_TopUp->getAllPembayaranByID($id);
+        $data['judul'] = "Sultan Verifikasi";
+        $data['all'] = $this->M_TopUp->getAllDataById($id);
+        // var_dump($data);
+        $id_game = $data['all']['id_game'];
+        $data['game'] = $this->M_TopUp->getGamesById($id_game);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('x/verifikasi_status', $data);
     }
 
 
