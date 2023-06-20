@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2023-06-17 20:49:11
+Date: 2023-06-20 16:20:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,7 +40,7 @@ CREATE TABLE `t_game` (
   `foto_game` varchar(50) DEFAULT NULL,
   `discount` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_game`)
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of t_game
@@ -54,7 +54,7 @@ INSERT INTO `t_game` VALUES ('6', 'FIFA Mobile', 'fifa.jpg', '6');
 INSERT INTO `t_game` VALUES ('7', 'Genshin Impact', 'genshin.jpg', '3');
 INSERT INTO `t_game` VALUES ('8', 'Call Of Duty Mobile', 'codm.jpg', '4');
 INSERT INTO `t_game` VALUES ('9', 'Honkai Star Rail', 'honkaisr.jpg', '2');
-INSERT INTO `t_game` VALUES ('11', 'Valorant', 'valorant1.jpg', '1');
+INSERT INTO `t_game` VALUES ('11', 'Valorant', 'valorant.jpg', '1');
 
 -- ----------------------------
 -- Table structure for `t_metode`
@@ -94,19 +94,22 @@ CREATE TABLE `t_pesan` (
   `email_pengirim` varchar(50) DEFAULT NULL,
   `subjek_pesan` varchar(50) DEFAULT NULL,
   `isi_pesan` varchar(200) DEFAULT '',
+  `tanggal_pesan` date DEFAULT NULL,
   PRIMARY KEY (`id_pesan`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of t_pesan
 -- ----------------------------
-INSERT INTO `t_pesan` VALUES ('1', 'Arul', 'arul@gmail.com', 'Teach me', 'Kamu keren banget, plis ajarin aku gimana caranya, apa yang harus aku lakukan supaya bisa bikin web kaya kamu!');
-INSERT INTO `t_pesan` VALUES ('2', 'Berbatos', 'berbatos@gmail.com', 'Great', 'How to make this great website. Wonderful!');
-INSERT INTO `t_pesan` VALUES ('3', 'Elon Musk', 'elonmusk@spacex.com', 'Pertanyaan tentang pembelian voucher', 'Halo, saya ingin menanyakan informasi tentang proses pembelian voucher game. Apakah ada promo atau diskon yang sedang berlangsung?');
-INSERT INTO `t_pesan` VALUES ('4', 'Jeff Bezos', 'jeffbezos@amazon.com', 'Saran untuk perbaikan web', 'Hai, saya telah menggunakan layanan top up voucher game ini dan memiliki beberapa saran untuk perbaikan tampilan dan fungsionalitas web. Apakah ada saluran komunikasi khusus untuk memberikan saran?');
-INSERT INTO `t_pesan` VALUES ('5', 'Mark Zuckerberg', 'markzuckerberg@facebook.com', 'Permintaan penawaran khusus\r\n', 'Halo tim, saya adalah seorang pelanggan setia yang sering melakukan top up voucher game di web ini. Apakah ada kemungkinan untuk mendapatkan penawaran khusus atau diskon sebagai pelanggan yang loyal?');
-INSERT INTO `t_pesan` VALUES ('6', 'Bernard Arnault', 'bernardarnault@lvmh.com', 'Permintaan bantuan penggunaan voucher', 'Halo, saya baru pertama kali menggunakan voucher game dan agak bingung dengan proses penggunaannya. Bisakah Anda memberikan panduan langkah demi langkah untuk menggunakan voucher dengan benar?');
-INSERT INTO `t_pesan` VALUES ('7', 'Larry Ellison', 'larryellison@oracle.com', 'Permintaan informasi ketersediaan voucher terbatas', 'Selamat pagi, saya tertarik dengan voucher game yang diklaim memiliki stok terbatas. Apakah Anda bisa memberikan informasi terkini tentang ketersediaan voucher tersebut? Saya ingin melakukan pembelian');
+INSERT INTO `t_pesan` VALUES ('1', 'Arul', 'arul@gmail.com', 'Teach me', 'Kamu keren banget, plis ajarin aku gimana caranya, apa yang harus aku lakukan supaya bisa bikin web kaya kamu!', '2023-06-13');
+INSERT INTO `t_pesan` VALUES ('2', 'Berbatos', 'berbatos@gmail.com', 'Great', 'How to make this great website. Wonderful!', '2023-06-14');
+INSERT INTO `t_pesan` VALUES ('3', 'Elon Musk', 'elonmusk@spacex.com', 'Pertanyaan tentang pembelian voucher', 'Halo, saya ingin menanyakan informasi tentang proses pembelian voucher game. Apakah ada promo atau diskon yang sedang berlangsung?', '2023-06-15');
+INSERT INTO `t_pesan` VALUES ('4', 'Jeff Bezos', 'jeffbezos@amazon.com', 'Saran untuk perbaikan web', 'Hai, saya telah menggunakan layanan top up voucher game ini dan memiliki beberapa saran untuk perbaikan tampilan dan fungsionalitas web. Apakah ada saluran komunikasi khusus untuk memberikan saran?', '2023-06-16');
+INSERT INTO `t_pesan` VALUES ('5', 'Mark Zuckerberg', 'markzuckerberg@facebook.com', 'Permintaan penawaran khusus\r\n', 'Halo tim, saya adalah seorang pelanggan setia yang sering melakukan top up voucher game di web ini. Apakah ada kemungkinan untuk mendapatkan penawaran khusus atau diskon sebagai pelanggan yang loyal?', '2023-06-17');
+INSERT INTO `t_pesan` VALUES ('6', 'Bernard Arnault', 'bernardarnault@lvmh.com', 'Permintaan bantuan penggunaan voucher', 'Halo, saya baru pertama kali menggunakan voucher game dan agak bingung dengan proses penggunaannya. Bisakah Anda memberikan panduan langkah demi langkah untuk menggunakan voucher dengan benar?', '2023-06-18');
+INSERT INTO `t_pesan` VALUES ('7', 'Larry Ellison', 'larryellison@oracle.com', 'Permintaan informasi ketersediaan voucher terbatas', 'Selamat pagi, saya tertarik dengan voucher game yang diklaim memiliki stok terbatas. Apakah Anda bisa memberikan informasi terkini tentang ketersediaan voucher tersebut? Saya ingin melakukan pembelian', '2023-06-19');
+INSERT INTO `t_pesan` VALUES ('8', 'arul', 'arul@gmail.com', 'menanyakan kabar', 'Bagaimana kabarnya setelah web ini berlangsung selama beberapa waktu?', '2023-06-20');
+INSERT INTO `t_pesan` VALUES ('9', 'kashi', 'kashi@gmail.com', 'HAI', 'HAI. Aku senang bisa mengirim pesan disini', '2023-06-20');
 
 -- ----------------------------
 -- Table structure for `t_struk`
@@ -116,6 +119,7 @@ CREATE TABLE `t_struk` (
   `id_struk` int(11) NOT NULL AUTO_INCREMENT,
   `uid_game` varchar(50) DEFAULT NULL,
   `waktu` varchar(50) DEFAULT '',
+  `tanggal_struk` date DEFAULT NULL,
   `id_voucher` int(11) DEFAULT NULL,
   `id_metode` int(11) DEFAULT NULL,
   `total_amount` varchar(50) DEFAULT '',
@@ -124,25 +128,30 @@ CREATE TABLE `t_struk` (
   KEY `fk_struk_voucher` (`id_voucher`),
   CONSTRAINT `fk_struk_metode` FOREIGN KEY (`id_metode`) REFERENCES `t_metode` (`id_metode`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_struk_voucher` FOREIGN KEY (`id_voucher`) REFERENCES `t_voucher` (`id_voucher`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of t_struk
 -- ----------------------------
-INSERT INTO `t_struk` VALUES ('22', 'aa', '10:19:57 Wednesday, 14 June', '7', '5', '550000');
-INSERT INTO `t_struk` VALUES ('23', 'aab', '10:33:04 Wednesday, 14 June', '3', '11', '55000');
-INSERT INTO `t_struk` VALUES ('24', 'Master_Arulz', '18:10:08 Wednesday, 14 June', '4', '2', '110000');
-INSERT INTO `t_struk` VALUES ('26', 'arul', '12:58:08 Friday, 16 June', '11', '3', '48507');
-INSERT INTO `t_struk` VALUES ('27', 'arul', '15:42:12 Friday, 16 June', '26', '14', '50000');
-INSERT INTO `t_struk` VALUES ('28', 'arul', '16:28:10 Friday, 16 June', '50', '7', '47500');
-INSERT INTO `t_struk` VALUES ('29', 'arul', '14:49:34 Saturday, 17 June', '44', '5', '50000');
-INSERT INTO `t_struk` VALUES ('30', 'kashidota', '15:29:10 Saturday, 17 June', '50', '14', '47500');
-INSERT INTO `t_struk` VALUES ('31', 'kashidota', '15:34:26 Saturday, 17 June', '12', '4', '68543');
-INSERT INTO `t_struk` VALUES ('32', 'kashidota', '17:59:00 Saturday, 17 June', '5', '11', '217800');
-INSERT INTO `t_struk` VALUES ('33', 'arul', '18:18:19 Saturday, 17 June', '39', '4', '790550');
-INSERT INTO `t_struk` VALUES ('34', 'arul', '18:19:46 Saturday, 17 June', '38', '4', '474330');
-INSERT INTO `t_struk` VALUES ('35', 'arul', '18:53:24 Saturday, 17 June', '34', '3', '375060');
-INSERT INTO `t_struk` VALUES ('36', 'arul', '18:58:05 Saturday, 17 June', '32', '5', '74730');
+INSERT INTO `t_struk` VALUES ('22', 'aa', '10:19:57 Wednesday, 14 June', '2023-06-14', '7', '5', '550000');
+INSERT INTO `t_struk` VALUES ('23', 'aab', '10:33:04 Wednesday, 14 June', '2023-06-14', '3', '11', '55000');
+INSERT INTO `t_struk` VALUES ('24', 'Master_Arulz', '18:10:08 Wednesday, 14 June', '2023-06-14', '4', '2', '110000');
+INSERT INTO `t_struk` VALUES ('26', 'arul', '12:58:08 Friday, 16 June', '2023-06-16', '11', '3', '48507');
+INSERT INTO `t_struk` VALUES ('27', 'arul', '15:42:12 Friday, 16 June', '2023-06-16', '26', '14', '50000');
+INSERT INTO `t_struk` VALUES ('28', 'arul', '16:28:10 Friday, 16 June', '2023-06-16', '50', '7', '47500');
+INSERT INTO `t_struk` VALUES ('29', 'arul', '14:49:34 Saturday, 17 June', '2023-06-17', '44', '5', '50000');
+INSERT INTO `t_struk` VALUES ('30', 'kashidota', '15:29:10 Saturday, 17 June', '2023-06-17', '50', '14', '47500');
+INSERT INTO `t_struk` VALUES ('31', 'kashidota', '15:34:26 Saturday, 17 June', '2023-06-17', '12', '4', '68543');
+INSERT INTO `t_struk` VALUES ('32', 'kashidota', '17:59:00 Saturday, 17 June', '2023-06-17', '5', '11', '217800');
+INSERT INTO `t_struk` VALUES ('33', 'arul', '18:18:19 Saturday, 17 June', '2023-06-17', '39', '4', '790550');
+INSERT INTO `t_struk` VALUES ('34', 'arul', '18:19:46 Saturday, 17 June', '2023-06-17', '38', '4', '474330');
+INSERT INTO `t_struk` VALUES ('35', 'arul', '18:53:24 Saturday, 17 June', '2023-06-17', '34', '3', '375060');
+INSERT INTO `t_struk` VALUES ('36', 'arul', '18:58:05 Saturday, 17 June', '2023-06-17', '32', '5', '74730');
+INSERT INTO `t_struk` VALUES ('39', 'kashidota', '15:07:46 Tuesday, 20 June', '2023-06-20', '15', '10', '12769.4');
+INSERT INTO `t_struk` VALUES ('40', 'arul', '15:13:43 Tuesday, 20 June', '2023-06-20', '7', '7', '544500');
+INSERT INTO `t_struk` VALUES ('41', 'arul', '15:14:17 Tuesday, 20 June', '2023-06-20', '20', '4', '19200');
+INSERT INTO `t_struk` VALUES ('42', 'arul', '16:14:23 Tuesday, 20 June', '2023-06-20', '53', '7', '235125');
+INSERT INTO `t_struk` VALUES ('43', 'kashidota', '16:19:40 Tuesday, 20 June', '2023-06-20', '29', '14', '490000');
 
 -- ----------------------------
 -- Table structure for `t_voucher`

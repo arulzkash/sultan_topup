@@ -19,7 +19,8 @@ class M_TopUp extends CI_Model
         return $this->db->get('t_game')->row_array();
     }
 
-    public function getAllPesan(){
+    public function getAllPesan()
+    {
         return $this->db->get('t_pesan')->result_array();
     }
 
@@ -62,7 +63,7 @@ class M_TopUp extends CI_Model
         return $this->db->get('t_struk')->result_array();
     }
 
-    
+
 
     public function insertStruk($data, $discount)
     {
@@ -71,22 +72,23 @@ class M_TopUp extends CI_Model
         $formattedDateTime = date('H:i:s l, d F', $currentDateTime);
 
         // var_dump($data);
-        $harga = $data['voucher'][0]['harga_voucher'];
-        $harga = $harga - ($discount/100*$harga);
+        $harga = $data['voucher']['harga_voucher'];
+        $harga = $harga - ($discount / 100 * $harga);
 
         $data = [
             "uid_game" => $this->input->post('uid', true),
             "waktu" => $formattedDateTime,
+            "tanggal_struk" => date('Y-m-d'),
             "id_voucher" => $this->input->post('id_voucher', true),
             "id_metode" => $this->input->post('id_metode', true),
             "total_amount" => $harga,
         ];
 
         $this->db->insert('t_struk', $data);
-
     }
 
-    public function getAllByID(){
+    public function getAllByID()
+    {
         $this->db->select('*');
         $this->db->from('t_struk');
         $this->db->join('t_metode', 't_struk.id_metode = t_metode.id_metode', 'inner');
@@ -98,7 +100,8 @@ class M_TopUp extends CI_Model
         return $this->db->get()->row_array();
     }
 
-    public function getAll(){
+    public function getAll()
+    {
         $this->db->select('*');
         $this->db->from('t_struk');
         $this->db->join('t_metode', 't_struk.id_metode = t_metode.id_metode', 'inner');
@@ -107,7 +110,19 @@ class M_TopUp extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function StrukByUID($uid){
+    public function getAllAdmin()
+    {
+        $this->db->select('*');
+        $this->db->from('t_struk');
+        $this->db->join('t_metode', 't_struk.id_metode = t_metode.id_metode', 'inner');
+        $this->db->join('t_voucher', 't_struk.id_voucher = t_voucher.id_voucher', 'inner');
+        $this->db->join('t_game', 't_voucher.id_game = t_game.id_game', 'inner');
+        $this->db->order_by('t_struk.waktu', 'asc');
+        return $this->db->get()->result_array();
+    }
+
+    public function StrukByUID($uid)
+    {
         $this->db->select('*');
         $this->db->from('t_struk');
         $this->db->join('t_metode', 't_struk.id_metode = t_metode.id_metode', 'inner');
@@ -116,6 +131,4 @@ class M_TopUp extends CI_Model
         $this->db->where('t_struk.uid_game', $uid);
         return $this->db->get()->result_array();
     }
-
-   
 }

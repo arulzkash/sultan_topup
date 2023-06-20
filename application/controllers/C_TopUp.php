@@ -39,7 +39,7 @@ class C_TopUp extends CI_Controller
     public function aksiTransaksi()
     {
         $data['voucher'] = $this->M_TopUp->getVoucherByID($this->input->post('id_voucher', true));
-        $id = $data['voucher'][0]['id_game'];
+        $id = $data['voucher']['id_game'];
         $data['game'] = $this->M_TopUp->getGamesById($id);
         $discount = $data['game']['discount'];
         

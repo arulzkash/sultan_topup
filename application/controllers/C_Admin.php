@@ -74,7 +74,7 @@ class C_Admin extends CI_Controller
         $data['judul'] = "Database Receipt";
         $data['active_database'] = "open";
         $data['active_struk'] = "active";
-        $data['struk'] = $this->M_TopUp->getAll();
+        $data['struk'] = $this->M_TopUp->getAllAdmin();
 
         $this->load->view('templates/menu_admin', $data);
         $this->load->view('admin/struk');
@@ -99,7 +99,8 @@ class C_Admin extends CI_Controller
             "nama_pengirim" => $this->input->post("nama_pengirim"),
             "email_pengirim" => $this->input->post("email_pengirim"),
             "subjek_pesan" => $this->input->post("subjek_pesan"),
-            "isi_pesan" => $this->input->post("isi_pesan")
+            "isi_pesan" => $this->input->post("isi_pesan"),
+            "tanggal_pesan" => date('Y-m-d')
         ];
 
         $this->db->insert('t_pesan', $data);

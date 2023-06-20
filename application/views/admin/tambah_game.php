@@ -37,7 +37,7 @@ if ($this->session->has_userdata('user') != 1) {
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-discount">Discount</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="basic-default-discount" name="discount" placeholder="Discount..." required />
+                                    <input type="number" class="form-control" id="basic-default-discount" name="discount" placeholder="Discount..." required min="1" max="99"/>
                                 </div>
                             </div>
 

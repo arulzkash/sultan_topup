@@ -81,35 +81,50 @@
       <div class="col-lg-12">
         <div class="section-heading">
           <h2>Buy here for the best price!</h2>
-
         </div>
       </div>
 
       <div class="col-lg-12">
-        <div class="row">
-          <?php foreach ($games as $game) : ?>
-            <div class="col-lg-3">
-              <div class="meeting-item">
-                <div class="thumb">
-                  <div class="price">
-                    <span>Disc <?=$game['discount']?>%</span>
-                  </div>
-                  <a href="<?= base_url(); ?>C_Topup/transaksi/<?= $game['id_game'] ?>"><img src="<?= base_url(); ?>assetx/assets/images/<?= $game['foto_game'] ?>" alt="Gambar game"></a>
-                </div>
-                <div class="down-content">
-                  <a class="text-center" href="<?= base_url(); ?>C_Topup/transaksi/<?= $game['id_game'] ?>">
-                    <h4><?= $game['nama_game'] ?></h4>
-                  </a>
-                </div>
-              </div>
+        <div class="col-lg-12">
+          <!-- Form Pencarian -->
+          <form action="#games" method="GET" class="mb-3" id="searchForm">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search game by name" name="search">
+              <button class="btn btn-primary" type="submit">Search</button>
             </div>
-          <?php endforeach; ?>
+          </form>
+
+          <div class="row">
+            <?php foreach ($games as $game) :
+              // Filter berdasarkan pencarian
+              $search = isset($_GET['search']) ? $_GET['search'] : '';
+              if (empty($search) || strpos(strtolower($game['nama_game']), strtolower($search)) !== false) :
+            ?>
+
+                <div class="col-lg-3">
+                  <div class="meeting-item">
+                    <div class="thumb">
+                      <div class="price">
+                        <span>Disc <?= $game['discount'] ?>%</span>
+                      </div>
+                      <a href="<?= base_url(); ?>C_Topup/transaksi/<?= $game['id_game'] ?>"><img src="<?= base_url(); ?>assetx/assets/images/<?= $game['foto_game'] ?>" alt="Gambar game"></a>
+                    </div>
+                    <div class="down-content">
+                      <a class="text-center" href="<?= base_url(); ?>C_Topup/transaksi/<?= $game['id_game'] ?>">
+                        <h4><?= $game['nama_game'] ?></h4>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+            <?php
+              endif;
+            endforeach; ?>
+          </div>
         </div>
       </div>
-
     </div>
-  </div>
 </section>
+
 
 <section class="apply-now" id="search">
   <div class="container">
@@ -134,7 +149,7 @@
           <div class="search-results">
             <!-- Tampilkan hasil pencarian jika ada -->
             <?php if (!empty($struk)) : ?>
-              <h4 class="fw-bold py-3 text-center" style="margin-bottom: 0px;"><span class="text-muted fw-light"></span> <?=$struk[0]['uid_game']?>'s Receipt</h4>
+              <h4 class="fw-bold py-3 text-center" style="margin-bottom: 0px;"><span class="text-muted fw-light"></span> <?= $struk[0]['uid_game'] ?>'s Receipt</h4>
 
               <!-- Hoverable Table rows -->
               <div class="card">
@@ -159,7 +174,7 @@
                           <td><?= $strk['nama_game'] ?></td>
                           <td><?= $strk['waktu'] ?></td>
                           <td><?= $strk['nama_metode'] ?></td>
-                          <td>Rp<?=number_format($strk['total_amount'],0,"",".")?></td>
+                          <td>Rp<?= number_format($strk['total_amount'], 0, "", ".") ?></td>
 
 
                         </tr>
@@ -249,7 +264,7 @@
   </div>
   <div class="footer">
     <p>Copyright © 2023 Kashidota Corporation. All rights reserved.
-      
+
     </p>
   </div>
 </section>
