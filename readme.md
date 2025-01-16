@@ -1,4 +1,4 @@
-![Screenshot 2025-01-16 202257](https://github.com/user-attachments/assets/f029d599-477a-47bb-992e-60539732854c)# 💎 Sultan Top-Up
+# 💎 Sultan Top-Up
 
 ## 📖 Description
 Sultan Top-Up is an online platform for purchasing game vouchers. The website provides a seamless experience for users to browse, search, and purchase game vouchers, along with features such as discounts, payment receipts, and transaction history. The admin page allows management of games, vouchers, payments, and user messages, ensuring smooth operation of the platform.
@@ -115,10 +115,10 @@ sultan_topup/
 ## 📷 Screenshots
 
 1. **Voucher Listing**
-  ![Screenshot 2025-01-16 202257](https://github.com/user-attachments/assets/46a051c3-803e-41f0-bc98-d438f9005ab1)
+  ![Screenshot 2025-01-16 202257](https://github.com/user-attachments/assets/f029d599-477a-47bb-992e-60539732854c)
+	![Screenshot 2025-01-16 202257](https://github.com/user-attachments/assets/46a051c3-803e-41f0-bc98-d438f9005ab1)
 	![image](https://github.com/user-attachments/assets/ebf59068-a760-4dff-89d0-09e8f5c0ac0d)
 	![image](https://github.com/user-attachments/assets/3a6ab0a6-2f44-4f6e-a4c7-f0313e679d59)
-
 
 2. **Voucher Details**
 	![image](https://github.com/user-attachments/assets/789107bd-8382-4408-ab8b-029fb19a2ac5)
@@ -167,7 +167,7 @@ sultan_topup/
 ![Uploading image.png…]()
 
 
-12. **Receipt Verification and Management**
+11. **Receipt Verification and Management**
 ![image](https://github.com/user-attachments/assets/c781fee2-9041-4875-88f8-c50a1e959527)
 
 ---
